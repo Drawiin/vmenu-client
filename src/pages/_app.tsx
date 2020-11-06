@@ -1,8 +1,9 @@
-import { AppProps } from 'next/dist/next-server/lib/router/router'
-import { useEffect } from 'react'
 import Head from 'next/head'
 import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
+import { AppProps } from 'next/dist/next-server/lib/router/router'
+import { useEffect } from 'react'
+
 import theme from '../styles/theme'
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
@@ -12,6 +13,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
       jssStyles.parentElement.removeChild(jssStyles)
     }
   }, [])
+
   return (
     <>
       <Head>
