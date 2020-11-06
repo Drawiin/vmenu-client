@@ -5,6 +5,7 @@ import { AppProps } from 'next/dist/next-server/lib/router/router'
 import { useEffect } from 'react'
 
 import theme from '../styles/theme'
+import BottomNavBar from '../components/BottomNavBar'
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   useEffect(() => {
@@ -26,6 +27,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Component {...pageProps} />
+        <BottomNavBar />
       </ThemeProvider>
     </>
   )
