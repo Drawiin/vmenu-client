@@ -9,7 +9,7 @@ import { useState } from 'react'
 const useStyles = makeStyles({
   root: {
     width: '100%',
-    position: 'absolute',
+    position: 'fixed',
     bottom: 0
   }
 })
