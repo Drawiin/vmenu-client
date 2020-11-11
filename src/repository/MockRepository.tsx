@@ -25,7 +25,8 @@ export async function getMockMenu(): Promise<Array<Category>> {
           description:
             'Filé Grelhado com Risoto de Limão Siciliano e Crispy de Alho Poró.',
           imgUrl: 'https://via.placeholder.com/600/f00',
-          thumbnailUrl: 'https://via.placeholder.com/150/#dd2F07'
+          thumbnailUrl: 'https://via.placeholder.com/150/#dd2F07',
+          price: 'R$ 10,00'
         }
       })
     }

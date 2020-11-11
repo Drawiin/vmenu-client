@@ -5,13 +5,13 @@ import Tab from '@material-ui/core/Tab'
 import { useEffect, useState } from 'react'
 import { getMockMenu } from '../repository/MockRepository'
 import Category from '../entities/Category'
+import CategoryItem from '../components/CategoryItem'
+import Toolbar from '@material-ui/core/Toolbar'
+import IconButton from '@material-ui/core/IconButton'
+import MenuIcon from '@material-ui/icons/Menu'
+import SearchIcon from '@material-ui/icons/Search'
+import MoreIcon from '@material-ui/icons/MoreVert'
 import Typography from '@material-ui/core/Typography'
-import ListItem from '@material-ui/core/ListItem'
-import Divider from '@material-ui/core/Divider'
-import ListItemText from '@material-ui/core/ListItemText'
-import ListItemAvatar from '@material-ui/core/ListItemAvatar'
-import Avatar from '@material-ui/core/Avatar'
-import List from '@material-ui/core/List'
 
 function a11yProps(index: number) {
   return {
@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   inline: {
     display: 'inline'
+  },
+  title: {
+    flexGrow: 1
   }
 }))
 
@@ -49,7 +52,18 @@ const Home: React.FC = () => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
+      <AppBar position="sticky" color="inherit">
+        <Toolbar>
+          <IconButton edge="start" color="primary" aria-label="menu">
+            <MenuIcon />
+          </IconButton>
+          <Typography align="center" variant="h6" className={classes.title}>
+            Cardápio
+          </Typography>
+          <IconButton aria-label="search" color="primary" edge="end">
+            <SearchIcon />
+          </IconButton>
+        </Toolbar>
         <Tabs
           value={category}
           onChange={handleChange}
@@ -69,33 +83,9 @@ const Home: React.FC = () => {
           })}
         </Tabs>
       </AppBar>
-      {menu.map(category => {
-        return (
-          <>
-            <Typography key={category.id} align="center" variant="h5">
-              {category.name}
-            </Typography>
-            <List>
-              {category.items.map(item => {
-                return (
-                  <>
-                    <ListItem alignItems="flex-start">
-                      <ListItemAvatar>
-                        <Avatar src={item.thumbnailUrl} />
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary={item.name}
-                        secondary={item.description}
-                      />
-                    </ListItem>
-                    <Divider variant="middle" component="li" />
-                  </>
-                )
-              })}
-            </List>
-          </>
-        )
-      })}
+      {menu.map(category => (
+        <CategoryItem category={category} key={category.id} />
+      ))}
     </div>
   )
 }
