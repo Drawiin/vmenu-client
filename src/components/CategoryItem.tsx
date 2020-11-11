@@ -13,8 +13,8 @@ interface CategoryItemProps {
 const useStyles = makeStyles((theme: Theme) => ({
   title: {
     fontSize: 20,
-    marginBottom: 16,
-    marginTop: 24,
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(5),
     fontWeight: theme.typography.fontWeightMedium
   }
 }))
