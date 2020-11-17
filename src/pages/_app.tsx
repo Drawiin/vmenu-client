@@ -7,7 +7,7 @@ import { useEffect } from 'react'
 import theme from '../styles/theme'
 import BottomNavBar from '../components/BottomNavBar'
 
-const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
+const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side')
     if (jssStyles) {
@@ -27,7 +27,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Component {...pageProps} />
-        <BottomNavBar />
+        {router.pathname !== '/' ? <BottomNavBar /> : null}
       </ThemeProvider>
     </>
   )

@@ -1,92 +1,113 @@
-import { makeStyles, Theme } from '@material-ui/core/styles'
-import AppBar from '@material-ui/core/AppBar'
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
-import { useEffect, useState } from 'react'
-import { getMockMenu } from '../repository/MockRepository'
-import Category from '../entities/Category'
-import CategoryItem from '../components/CategoryItem'
-import Toolbar from '@material-ui/core/Toolbar'
-import IconButton from '@material-ui/core/IconButton'
-import MenuIcon from '@material-ui/icons/Menu'
-import SearchIcon from '@material-ui/icons/Search'
-import Typography from '@material-ui/core/Typography'
-
-function a11yProps(index: number) {
-  return {
-    id: `scrollable-auto-tab-${index}`,
-    'aria-controls': `scrollable-auto-tabpanel-${index}`
-  }
-}
+import { Button, makeStyles, Theme, Typography } from '@material-ui/core'
+import MenuBookIcon from '@material-ui/icons/MenuBook'
+import Qrcode from 'mdi-material-ui/Qrcode'
+import Image from 'next/image'
+import Link from 'next/link'
 
 const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    flexGrow: 1,
-    width: '100%',
-    backgroundColor: theme.palette.background.paper
+  background: {
+    backgroundImage: "url('/background.jpg')",
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    width: '100vw',
+    height: '100vh'
   },
-  inline: {
-    display: 'inline'
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    width: '100vw',
+    height: '100vh',
+    zIndex: 0,
+    position: 'fixed',
+    top: 0
   },
-  title: {
-    flexGrow: 1
+  content: {
+    zIndex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    height: '100%',
+    position: 'relative',
+    alignItems: 'center',
+    padding: theme.spacing(2)
+  },
+  description: {
+    fontSize: 32,
+    letterSpacing: 2,
+    fontWeight: theme.typography.fontWeightLight,
+    textAlign: 'center',
+    color: '#fff'
+  },
+  header: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginTop: 130
+  },
+  img: {
+    alignSelf: 'center'
+  },
+  buttonContainer: {
+    width: '100%'
+  },
+  button: {
+    textTransform: 'none',
+    borderRadius: 80,
+    height: 56,
+    display: 'flex',
+    padding: ' 0 28px',
+    textAlign: 'center',
+    marginBottom: theme.spacing(2)
+  },
+  buttonText: {
+    justifySelf: 'center',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    fontSize: 20,
+    fontWeight: 500
   }
 }))
 
-const Home: React.FC = () => {
+const SignIn: React.FC = () => {
   const classes = useStyles()
-  const [category, setCategory] = useState(0)
-  const [menu, setMenu] = useState<Array<Category>>([])
-
-  useEffect(() => {
-    getMockMenu().then(menu => setMenu(menu))
-  }, [])
-
-  const handleChange = (
-    event: React.ChangeEvent<Record<string, unknown>>,
-    newValue: number
-  ) => {
-    setCategory(newValue)
-  }
-
   return (
-    <div className={classes.root}>
-      <AppBar position="sticky" color="inherit">
-        <Toolbar>
-          <IconButton edge="start" color="primary" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography align="center" variant="h6" className={classes.title}>
-            Cardápio
+    <div className={classes.background}>
+      <div className={classes.content}>
+        <div className={classes.header}>
+          <div className={classes.img}>
+            <Image src="/logo.png" width={157} height={69} />
+          </div>
+          <Typography className={classes.description}>
+            Bem Vindo Ao Seu Cardápio Virtual, Escaneie o QR Code da Sua Mesa
+            Para Continuar.
           </Typography>
-          <IconButton aria-label="search" color="primary" edge="end">
-            <SearchIcon />
-          </IconButton>
-        </Toolbar>
-        <Tabs
-          value={category}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="scrollable"
-          scrollButtons="auto"
-        >
-          {menu.map((category, index) => {
-            return (
-              <Tab
-                label={category.name}
-                {...a11yProps(index)}
-                key={category.id}
-              />
-            )
-          })}
-        </Tabs>
-      </AppBar>
-      {menu.map(category => (
-        <CategoryItem category={category} key={category.id} />
-      ))}
+        </div>
+        <div className={classes.buttonContainer}>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<Qrcode />}
+            fullWidth
+            className={classes.button}
+          >
+            <span className={classes.buttonText}>Ler QR code da mesa</span>
+          </Button>
+          <Link href="/menu">
+            <Button
+              variant="outlined"
+              color="primary"
+              startIcon={<MenuBookIcon />}
+              fullWidth
+              className={classes.button}
+            >
+              <span className={classes.buttonText}>Ir para o cardápio</span>
+            </Button>
+          </Link>
+        </div>
+      </div>
+      <div className={classes.overlay}></div>
     </div>
   )
 }
 
-export default Home
+export default SignIn
