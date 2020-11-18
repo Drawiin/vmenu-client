@@ -21,7 +21,7 @@ const SignIn: React.FC = () => {
       display="flex"
       flexDirection="column"
       justifyContent="space-between"
-      height="100vh"
+      minHeight="95vh"
       width={1.0}
       paddingX={2}
       paddingBottom={5}
