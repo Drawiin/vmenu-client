@@ -2,7 +2,7 @@ import { Box, ListItem, Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import Image from 'next/image'
 import Product from '../entities/Product'
-
+import { currencyConvertion } from '../utils/Conversions'
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     paddingTop: 16,
@@ -51,7 +51,9 @@ const DishItem: React.FC<DishItemProps> = ({ dish }) => {
         <Typography className={classes.description}>
           {dish.description}
         </Typography>
-        <Typography className={classes.price}>{dish.price}</Typography>
+        <Typography className={classes.price}>
+          {currencyConvertion(dish.price)}
+        </Typography>
       </Box>
       {dish?.images[0]?.url && (
         <Image
