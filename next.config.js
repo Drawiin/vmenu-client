@@ -1,5 +1,5 @@
 module.exports = {
     images: {
-      domains: ['via.placeholder.com'],
+      domains: ['migueis-api.herokuapp.com'],
     },
   }
