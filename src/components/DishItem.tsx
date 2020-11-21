@@ -1,7 +1,7 @@
 import { Box, ListItem, Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import Image from 'next/image'
-import Dish from '../entities/Dish'
+import Product from '../entities/Product'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 interface DishItemProps {
-  dish: Dish
+  dish: Product
 }
 
 const DishItem: React.FC<DishItemProps> = ({ dish }) => {
@@ -53,12 +53,14 @@ const DishItem: React.FC<DishItemProps> = ({ dish }) => {
         </Typography>
         <Typography className={classes.price}>{dish.price}</Typography>
       </Box>
-      <Image
-        src={dish.thumbnailUrl}
-        height={80}
-        width={80}
-        className={classes.image}
-      />
+      {dish?.images[0]?.url && (
+        <Image
+          src={dish?.images[0]?.url}
+          height={80}
+          width={80}
+          className={classes.image}
+        />
+      )}
     </ListItem>
   )
 }
