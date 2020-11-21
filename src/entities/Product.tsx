@@ -5,7 +5,7 @@ export default interface Product {
   name: string
   price: number
   quantity: number
-  category: Category
+  category?: Category
   description: string
   images: Array<{
     id: number

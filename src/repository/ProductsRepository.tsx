@@ -16,10 +16,12 @@ export async function getMenu(): Promise<Array<MenuCategory>> {
   const menu: CategoryMapping = {}
 
   response.data.forEach(product => {
-    const category = menu[product.category.id]
-    menu[product.category.id] = {
-      id: product.category.id,
-      name: product.category.name,
+    const categoryId = product?.category?.id ?? -1
+    const categoryName = product?.category?.name ?? 'Outros'
+    const category = menu[categoryId]
+    menu[categoryId] = {
+      id: categoryId,
+      name: categoryName,
       itens: category?.itens ? [...category?.itens, product] : [product]
     }
   })
