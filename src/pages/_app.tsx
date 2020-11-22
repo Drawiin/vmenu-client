@@ -27,7 +27,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Component {...pageProps} />
-        {router.pathname !== '/' ? <BottomNavBar /> : null}
+        {router.pathname !== '/menu' ? null : <BottomNavBar />}
       </ThemeProvider>
     </>
   )
