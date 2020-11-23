@@ -11,6 +11,11 @@ export async function getProducts(): Promise<Array<Product>> {
   return response.data
 }
 
+export async function showProducts(id: number): Promise<Product> {
+  const response = await ApiClient.get<Product>(`products/${id}`)
+  return response.data
+}
+
 export async function getMenu(): Promise<Array<MenuCategory>> {
   const response = await ApiClient.get<Array<Product>>('products')
   const menu: CategoryMapping = {}
