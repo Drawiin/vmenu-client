@@ -54,7 +54,7 @@ const SignIn: React.FC = () => {
             Cardápio
           </StyledButton>
         </Link>
-        <Link href="/qrcode">
+        <Link href="/read-table">
           <StyledButton
             fullWidth
             disableElevation
