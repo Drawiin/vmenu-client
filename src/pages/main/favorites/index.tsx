@@ -12,7 +12,7 @@ const Favorites: React.FC = () => {
       justifyContent="center"
       flexDirection="column"
     >
-      <Image src="/empty_favorite.svg" width={300} height={300} />
+      <Image src="/empty_favorite.svg" width={200} height={200} />
       <Box marginTop={5}>
         <Typography variant="h5" align="center" color="textSecondary">
           Você ainda não tem favoritos

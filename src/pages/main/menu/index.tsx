@@ -9,11 +9,15 @@ import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import SearchIcon from '@material-ui/icons/Search'
 import Typography from '@material-ui/core/Typography'
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
+import Box from '@material-ui/core/Box'
+import Divider from '@material-ui/core/Divider'
 
 import CategoryItem from '../../../components/CategoryItem'
 import { getMenu } from '../../../repository/ProductsRepository'
 import MenuCategory from '../../../entities/MenuCategory'
 import { GetStaticProps } from 'next'
+import Image from 'next/image'
 
 function a11yProps(index: number) {
   return {
@@ -37,11 +41,16 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   tab: {
     textTransform: 'none'
+  },
+  drawerImg: {
+    objectFit: 'cover',
+    borderRadius: '50%'
   }
 }))
 const Home: React.FC<{ menu: Array<MenuCategory> }> = ({ menu }) => {
   const classes = useStyles()
   const [category, setCategory] = useState(0)
+  const [open, setOpen] = useState(false)
 
   const handleChange = (
     event: React.ChangeEvent<Record<string, unknown>>,
@@ -65,11 +74,20 @@ const Home: React.FC<{ menu: Array<MenuCategory> }> = ({ menu }) => {
     })
   }
 
+  const toggleDrawer = (open: boolean) => {
+    setOpen(open)
+  }
+
   return (
     <div className={classes.root}>
       <AppBar position="sticky" color="inherit" elevation={0}>
         <Toolbar>
-          <IconButton edge="start" aria-label="menu" color="primary">
+          <IconButton
+            edge="start"
+            aria-label="menu"
+            color="primary"
+            onClick={() => toggleDrawer(true)}
+          >
             <MenuIcon />
           </IconButton>
           <Typography align="center" variant="h6" className={classes.title}>
@@ -105,6 +123,34 @@ const Home: React.FC<{ menu: Array<MenuCategory> }> = ({ menu }) => {
           <CategoryItem category={category} />
         </div>
       ))}
+      <SwipeableDrawer
+        anchor="left"
+        open={open}
+        onClose={() => toggleDrawer(false)}
+        onOpen={() => toggleDrawer(true)}
+      >
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          paddingTop={5}
+          width={240}
+        >
+          <Image
+            src="/dinner.svg"
+            width={120}
+            height={120}
+            className={classes.drawerImg}
+          />
+          <Box marginX={3}>
+            <Typography variant="h6" color="textSecondary" align="center">
+              Mesa 01
+            </Typography>
+          </Box>
+
+          <Divider />
+        </Box>
+      </SwipeableDrawer>
     </div>
   )
 }

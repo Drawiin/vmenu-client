@@ -150,6 +150,7 @@ const ProductDetail: React.FC<{ product: Product }> = ({ product }) => {
           </IconButton>
         </Box>
         <Button
+          onClick={() => router.push('/main/menu')}
           disabled={quantity <= 0}
           variant="contained"
           color="primary"
@@ -168,7 +169,7 @@ export default ProductDetail
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: [{ params: { item: '9' } }],
+    paths: [],
     fallback: true
   }
 }
