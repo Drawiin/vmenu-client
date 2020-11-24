@@ -70,7 +70,7 @@ const ReadTable: React.FC = () => {
     if (result && result.includes('https://vmenu-client.vercel.app/menu')) {
       const urlParams = new URLSearchParams(result.split('?')[1])
       router.push({
-        href: '/menu',
+        pathname: '/menu',
         query: { table: urlParams.get('table') }
       })
     }
