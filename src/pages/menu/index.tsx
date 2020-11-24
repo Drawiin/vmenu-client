@@ -52,9 +52,9 @@ const Home: React.FC = () => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="sticky" color="inherit">
+      <AppBar position="sticky" color="transparent">
         <Toolbar>
-          <IconButton edge="start" color="primary" aria-label="menu">
+          <IconButton edge="start" aria-label="menu">
             <MenuIcon />
           </IconButton>
           <Typography align="center" variant="h6" className={classes.title}>
