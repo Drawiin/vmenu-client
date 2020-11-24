@@ -31,6 +31,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: '100vh',
     borderTopWidth: '25vh',
     borderBottomWidth: '25vh',
+    borderRightWidth: '10vh',
+    borderLeftWidth: '10vh',
     position: 'fixed'
   }
 }))
