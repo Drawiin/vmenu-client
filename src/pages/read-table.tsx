@@ -66,7 +66,7 @@ const QrReader = dynamic(() => import('react-qr-scanner'), {
 })
 
 const ReadTable: React.FC = () => {
-  const [facingMode, setFacingMode] = useState<'rear' | 'front'>('front')
+  const [facingMode, setFacingMode] = useState<'rear' | 'front'>('rear')
   const router = useRouter()
   const classes = useStyles()
 
