@@ -23,14 +23,19 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexGrow: 1,
     color: theme.palette.primary.contrastText
   },
+  subTitle: {
+    flexGrow: 1,
+    color: theme.palette.primary.contrastText,
+    fontWeight: 'lighter'
+  },
   overlay: {
     backgroundColor: 'rgba(0, 0, 0, 0)',
     borderColor: 'rgba(0, 0, 0, 0.4)',
     borderStyle: 'solid',
     width: '100vw',
     height: '100vh',
-    borderTopWidth: '25vh',
-    borderBottomWidth: '25vh',
+    borderTopWidth: '30vh',
+    borderBottomWidth: '30vh',
     borderRightWidth: '5vh',
     borderLeftWidth: '5vh',
     position: 'fixed'
@@ -62,7 +67,13 @@ const ReadTable: React.FC = () => {
   const classes = useStyles()
 
   const onScan = (result?: string) => {
-    result && console.log(result)
+    if (result && result.includes('https://vmenu-client.vercel.app/menu')) {
+      const urlParams = new URLSearchParams(result.split('?')[1])
+      router.push({
+        href: '/menu',
+        query: { table: urlParams.get('table') }
+      })
+    }
   }
 
   return (
@@ -99,6 +110,15 @@ const ReadTable: React.FC = () => {
               <HelpOutline />
             </IconButton>
           </Toolbar>
+          <Box paddingX="20%" marginTop="10%">
+            <Typography
+              align="center"
+              variant="h5"
+              className={classes.subTitle}
+            >
+              Leia o código &quot;QR&quot; da sua mesa
+            </Typography>
+          </Box>
         </AppBar>
         <Box className={classes.overlay}></Box>
       </Box>
