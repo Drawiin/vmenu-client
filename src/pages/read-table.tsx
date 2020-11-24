@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ComponentType, useState } from 'react'
 
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
@@ -94,7 +94,7 @@ const ReadTable: React.FC = () => {
         showViewFinder={false}
         onScan={onScan}
         onError={e => console.log(e)}
-        facingMode="rear"
+        facingMode={facingMode}
         className={classes.preview}
         style={{ height: '100%', width: '100%', objectFit: 'cover' }}
       />
