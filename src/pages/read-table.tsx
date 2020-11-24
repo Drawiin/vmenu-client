@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
@@ -7,7 +9,8 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos'
-import HelpOutline from '@material-ui/icons/HelpOutline'
+import CameraRearOutlined from '@material-ui/icons/CameraRearOutlined'
+import CameraFrontOutlined from '@material-ui/icons/CameraFrontOutlined'
 
 import Typography from '@material-ui/core/Typography'
 import { makeStyles, Theme } from '@material-ui/core/styles'
@@ -63,6 +66,7 @@ const QrReader = dynamic(() => import('react-qr-scanner'), {
 })
 
 const ReadTable: React.FC = () => {
+  const [facingMode, setFacingMode] = useState<'rear' | 'front'>()
   const router = useRouter()
   const classes = useStyles()
 
@@ -73,6 +77,14 @@ const ReadTable: React.FC = () => {
         pathname: '/menu',
         query: { table: urlParams.get('table') }
       })
+    }
+  }
+
+  const onToggleFacingMode = () => {
+    if (facingMode === 'front') {
+      setFacingMode('rear')
+    } else {
+      setFacingMode('front')
     }
   }
 
@@ -106,8 +118,16 @@ const ReadTable: React.FC = () => {
             <Typography align="center" variant="h6" className={classes.title}>
               QR CODE
             </Typography>
-            <IconButton className={classes.button} edge="end">
-              <HelpOutline />
+            <IconButton
+              className={classes.button}
+              edge="end"
+              onClick={() => onToggleFacingMode()}
+            >
+              {facingMode === 'rear' ? (
+                <CameraRearOutlined />
+              ) : (
+                <CameraFrontOutlined />
+              )}
             </IconButton>
           </Toolbar>
           <Box paddingX="20%" marginTop="10%">
