@@ -1,4 +1,4 @@
-import { useEffect, useState, createRef, Ref, RefObject } from 'react'
+import { useState, createRef, RefObject } from 'react'
 
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography'
 import CategoryItem from '../../../components/CategoryItem'
 import { getMenu } from '../../../repository/ProductsRepository'
 import MenuCategory from '../../../entities/MenuCategory'
+import { GetStaticProps } from 'next'
 
 function a11yProps(index: number) {
   return {
@@ -58,7 +59,6 @@ const Home: React.FC<{ menu: Array<MenuCategory> }> = ({ menu }) => {
   )
 
   const handleCategoryClicked = (id: number) => {
-    console.log(refs[id]?.current)
     refs[id]?.current?.scrollIntoView({
       behavior: 'smooth',
       block: 'center'
@@ -69,7 +69,7 @@ const Home: React.FC<{ menu: Array<MenuCategory> }> = ({ menu }) => {
     <div className={classes.root}>
       <AppBar position="sticky" color="inherit" elevation={0}>
         <Toolbar>
-          <IconButton edge="start" aria-label="menu">
+          <IconButton edge="start" aria-label="menu" color="primary">
             <MenuIcon />
           </IconButton>
           <Typography align="center" variant="h6" className={classes.title}>
@@ -111,13 +111,10 @@ const Home: React.FC<{ menu: Array<MenuCategory> }> = ({ menu }) => {
 
 export default Home
 
-export async function getStaticProps(): Promise<{
-  props: {
-    menu: MenuCategory[]
-  }
-}> {
+export const getStaticProps: GetStaticProps = async () => {
   const menu = await getMenu()
   return {
-    props: { menu }
+    props: { menu },
+    revalidate: 10
   }
 }
