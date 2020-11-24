@@ -4,7 +4,10 @@ import MenuBookIcon from '@material-ui/icons/MenuBook'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import ReceiptIcon from '@material-ui/icons/Receipt'
 import { makeStyles } from '@material-ui/core/styles'
+
 import { useState } from 'react'
+
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles({
   root: {
@@ -17,6 +20,7 @@ const useStyles = makeStyles({
 const BottomNavBar: React.FC = () => {
   const classes = useStyles()
   const [value, setValue] = useState(0)
+  const router = useRouter()
 
   return (
     <BottomNavigation
@@ -27,9 +31,21 @@ const BottomNavBar: React.FC = () => {
       showLabels
       className={classes.root}
     >
-      <BottomNavigationAction label="Cardápio" icon={<MenuBookIcon />} />
-      <BottomNavigationAction label="Favoritos" icon={<FavoriteIcon />} />
-      <BottomNavigationAction label="Conta" icon={<ReceiptIcon />} />
+      <BottomNavigationAction
+        label="Cardápio"
+        icon={<MenuBookIcon />}
+        onClick={() => router.push('/main/menu')}
+      />
+      <BottomNavigationAction
+        label="Favoritos"
+        icon={<FavoriteIcon />}
+        onClick={() => router.push('/main/favorites')}
+      />
+      <BottomNavigationAction
+        label="Conta"
+        icon={<ReceiptIcon />}
+        onClick={() => router.push('/main/orders')}
+      />
     </BottomNavigation>
   )
 }

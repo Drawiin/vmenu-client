@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 import { useRouter } from 'next/router'
 import Image from 'next/image'
@@ -20,6 +20,7 @@ import { showProducts } from '../../repository/ProductsRepository'
 import useTheme from '@material-ui/core/styles/useTheme'
 import Product from '../../entities/Product'
 import { currencyConvertion } from '../../utils/Conversions'
+import { GetStaticPaths, GetStaticProps } from 'next'
 
 const useStyles = makeStyles((theme: Theme) => ({
   productImage: {
@@ -48,22 +49,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     borderRadius: theme.spacing(1)
   }
 }))
-const ProductDetail: React.FC = () => {
+const ProductDetail: React.FC<{ product: Product }> = ({ product }) => {
   const [quantity, setQuantity] = useState(0)
   const [observation, setObservations] = useState('')
-  const [product, setProduct] = useState<Product>()
   const classes = useStyles()
   const theme = useTheme()
   const router = useRouter()
-
-  useEffect(() => {
-    const id = router.query?.id
-    id &&
-      showProducts(Number(id)).then(newProduct => {
-        setProduct(newProduct)
-      })
-  }, [])
-
   return (
     <Box display="flex" flexDirection="column">
       <AppBar position="sticky" color="inherit" elevation={0}>
@@ -84,15 +75,13 @@ const ProductDetail: React.FC = () => {
         paddingX={2}
         marginTop={3}
       >
-        {product?.images[0]?.url ? (
+        {product?.images[0]?.url && (
           <Image
             src={product?.images[0].url}
             width={250}
             height={250}
             className={classes.productImage}
           />
-        ) : (
-          <Box width={250} height={250}></Box>
         )}
       </Box>
       <Box
@@ -176,3 +165,20 @@ const ProductDetail: React.FC = () => {
 }
 
 export default ProductDetail
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [{ params: { item: '9' } }],
+    fallback: true
+  }
+}
+
+export const getStaticProps: GetStaticProps = async context => {
+  const { item } = context.params
+  const data = await showProducts(Number(item))
+
+  return {
+    props: { product: data },
+    revalidate: 60
+  }
+}

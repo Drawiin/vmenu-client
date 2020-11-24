@@ -51,7 +51,7 @@ const DishItem: React.FC<DishItemProps> = ({ dish }) => {
     <Link
       href={{
         pathname: '/product/[item]',
-        query: { item: dish.name, id: dish.id }
+        query: { item: dish.id }
       }}
     >
       <ListItem divider disableGutters className={classes.root} button>
