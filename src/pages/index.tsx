@@ -43,7 +43,7 @@ const SignIn: React.FC = () => {
       </Box>
 
       <Box display="flex">
-        <Link href="/menu">
+        <Link href="/main/menu">
           <StyledButton
             style={{ marginRight: 16 }}
             fullWidth
@@ -54,7 +54,7 @@ const SignIn: React.FC = () => {
             Cardápio
           </StyledButton>
         </Link>
-        <Link href="/read-table">
+        <Link href="/readqr">
           <StyledButton
             fullWidth
             disableElevation

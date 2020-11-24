@@ -71,7 +71,7 @@ const ProductDetail: React.FC = () => {
           <IconButton
             color="primary"
             edge="start"
-            onClick={() => router.push('/menu')}
+            onClick={() => router.push('/main/menu')}
           >
             <ArrowBackIos />
           </IconButton>
@@ -84,12 +84,16 @@ const ProductDetail: React.FC = () => {
         paddingX={2}
         marginTop={3}
       >
-        <Image
-          src="https://migueis-api.herokuapp.com/uploads/1606055242884-pasta-1463930-1920.jpg"
-          width={250}
-          height={250}
-          className={classes.productImage}
-        />
+        {product?.images[0]?.url ? (
+          <Image
+            src={product?.images[0].url}
+            width={250}
+            height={250}
+            className={classes.productImage}
+          />
+        ) : (
+          <Box width={250} height={250}></Box>
+        )}
       </Box>
       <Box
         display="flex"

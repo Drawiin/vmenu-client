@@ -1,17 +1,18 @@
+import { useEffect, useState } from 'react'
+
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
-import { useEffect, useState } from 'react'
-import Category from '../../entities/Category'
-import CategoryItem from '../../components/CategoryItem'
 import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import SearchIcon from '@material-ui/icons/Search'
 import Typography from '@material-ui/core/Typography'
-import { getMenu } from '../../repository/ProductsRepository'
-import MenuCategory from '../../entities/MenuCategory'
+
+import CategoryItem from '../../../components/CategoryItem'
+import { getMenu } from '../../../repository/ProductsRepository'
+import MenuCategory from '../../../entities/MenuCategory'
 
 function a11yProps(index: number) {
   return {

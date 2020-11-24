@@ -1,4 +1,4 @@
-import { ComponentType, useState } from 'react'
+import { useState } from 'react'
 
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
@@ -38,9 +38,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: '100vw',
     height: '100vh',
     borderTopWidth: '30vh',
-    borderBottomWidth: '30vh',
-    borderRightWidth: '5vh',
-    borderLeftWidth: '5vh',
+    borderBottomWidth: '38vh',
+    borderRightWidth: '8vh',
+    borderLeftWidth: '8vh',
     position: 'fixed'
   }
 }))
@@ -65,16 +65,19 @@ const QrReader = dynamic(() => import('react-qr-scanner'), {
   }
 })
 
-const ReadTable: React.FC = () => {
+const ReadQr: React.FC = () => {
   const [facingMode, setFacingMode] = useState<'rear' | 'front'>('rear')
   const router = useRouter()
   const classes = useStyles()
 
   const onScan = (result?: string) => {
-    if (result && result.includes('https://vmenu-client.vercel.app/menu')) {
+    if (
+      result &&
+      result.includes('https://vmenu-client.vercel.app/main/menu')
+    ) {
       const urlParams = new URLSearchParams(result.split('?')[1])
       router.push({
-        pathname: '/menu',
+        pathname: 'main/menu',
         query: { table: urlParams.get('table') }
       })
     }
@@ -111,7 +114,7 @@ const ReadTable: React.FC = () => {
             <IconButton
               className={classes.button}
               edge="start"
-              onClick={() => router.push('/')}
+              onClick={() => router.replace('/')}
             >
               <ArrowBackIos />
             </IconButton>
@@ -124,9 +127,9 @@ const ReadTable: React.FC = () => {
               onClick={() => onToggleFacingMode()}
             >
               {facingMode === 'rear' ? (
-                <CameraRearOutlined />
-              ) : (
                 <CameraFrontOutlined />
+              ) : (
+                <CameraRearOutlined />
               )}
             </IconButton>
           </Toolbar>
@@ -146,4 +149,4 @@ const ReadTable: React.FC = () => {
   )
 }
 
-export default ReadTable
+export default ReadQr

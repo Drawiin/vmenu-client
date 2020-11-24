@@ -50,7 +50,7 @@ const DishItem: React.FC<DishItemProps> = ({ dish }) => {
   return (
     <Link
       href={{
-        pathname: 'menu/[item]',
+        pathname: '/product/[item]',
         query: { item: dish.name, id: dish.id }
       }}
     >
