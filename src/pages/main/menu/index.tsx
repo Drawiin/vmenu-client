@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, createRef, Ref, RefObject } from 'react'
 
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
@@ -25,24 +25,22 @@ const useStyles = makeStyles((theme: Theme) => ({
   root: {
     flexGrow: 1,
     width: '100%',
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
+    paddingBottom: theme.spacing(10)
   },
   inline: {
     display: 'inline'
   },
   title: {
     flexGrow: 1
+  },
+  tab: {
+    textTransform: 'none'
   }
 }))
-
-const Home: React.FC = () => {
+const Home: React.FC<{ menu: Array<MenuCategory> }> = ({ menu }) => {
   const classes = useStyles()
   const [category, setCategory] = useState(0)
-  const [menu, setMenu] = useState<Array<MenuCategory>>([])
-
-  useEffect(() => {
-    getMenu().then(setMenu)
-  }, [])
 
   const handleChange = (
     event: React.ChangeEvent<Record<string, unknown>>,
@@ -51,9 +49,25 @@ const Home: React.FC = () => {
     setCategory(newValue)
   }
 
+  const refs: { [id: number]: RefObject<HTMLDivElement> } = menu.reduce(
+    (acc, value) => {
+      acc[value.id] = createRef()
+      return acc
+    },
+    {}
+  )
+
+  const handleCategoryClicked = (id: number) => {
+    console.log(refs[id]?.current)
+    refs[id]?.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    })
+  }
+
   return (
     <div className={classes.root}>
-      <AppBar position="sticky" color="transparent">
+      <AppBar position="sticky" color="inherit" elevation={0}>
         <Toolbar>
           <IconButton edge="start" aria-label="menu">
             <MenuIcon />
@@ -76,6 +90,8 @@ const Home: React.FC = () => {
           {menu.map((category, index) => {
             return (
               <Tab
+                onClick={() => handleCategoryClicked(category.id)}
+                className={classes.tab}
                 label={category.name}
                 {...a11yProps(index)}
                 key={category.id}
@@ -85,10 +101,23 @@ const Home: React.FC = () => {
         </Tabs>
       </AppBar>
       {menu.map(category => (
-        <CategoryItem category={category} key={category.id} />
+        <div ref={refs[category.id]} key={category.id}>
+          <CategoryItem category={category} />
+        </div>
       ))}
     </div>
   )
 }
 
 export default Home
+
+export async function getStaticProps(): Promise<{
+  props: {
+    menu: MenuCategory[]
+  }
+}> {
+  const menu = await getMenu()
+  return {
+    props: { menu }
+  }
+}
