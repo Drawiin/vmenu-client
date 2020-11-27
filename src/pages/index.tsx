@@ -56,12 +56,24 @@ const SignIn: React.FC = () => {
         </Link>
         <Link href="/readqr">
           <StyledButton
+            style={{ marginRight: 16 }}
             fullWidth
             disableElevation
             variant="contained"
             color="primary"
           >
             Ler QR code
+          </StyledButton>
+        </Link>
+        <Link href="/login">
+          <StyledButton
+            style={{ marginRight: 16 }}
+            fullWidth
+            disableElevation
+            variant="outlined"
+            color="secondary"
+          >
+            Login / Register
           </StyledButton>
         </Link>
       </Box>
