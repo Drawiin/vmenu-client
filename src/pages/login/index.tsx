@@ -59,29 +59,34 @@ const login: React.FC = () => {
     )
   }
 
+  // exemplo de como seria o registro de um admin
   const registerAdmin = async () => {
+    // Senha do admin ja existente
     const password = 'admin'
     const hashedPassword = await hashPassword(password)
 
+    // Email do admin ja existente
     const email = 'admin@admin.com'
 
-    const user = await ApiClient.get<AxiosLoginResponse>('/login', {
+    // Usuario do admin
+    const admin = await ApiClient.get<AxiosLoginResponse>('/login', {
       auth: {
         username: email,
         password: hashedPassword
       }
     })
 
-    const privateKey = decrypt(password, user.data.encryptedPrivateKey)
+    // mesma coisa que o user normal
+    const privateKey = decrypt(password, admin.data.encryptedPrivateKey)
 
     const randomNumber = Math.ceil(Math.random() * 1000)
 
     await ApiClient.post(
       '/registerAdmin',
       {
-        name: `user-batata-${randomNumber}`,
-        encryptedPrivateKey: user.data.encryptedPrivateKey,
-        publicKey: user.data.publicKey
+        name: `admin-batata-${randomNumber}`,
+        encryptedPrivateKey: admin.data.encryptedPrivateKey,
+        publicKey: admin.data.publicKey
       },
       {
         headers: generateHeader(privateKey, email)
