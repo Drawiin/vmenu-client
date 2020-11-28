@@ -36,9 +36,9 @@ const SignIn: React.FC = () => {
           />
         </Box>
 
-        <Typography variant="h6" color="textSecondary" align="center">
-          Bem Vindo Ao Seu Cardápio Virtual, Escaneie o QR Code da Sua Mesa Para
-          Continuar.
+        <Typography variant="h5" color="textSecondary" align="center">
+          Bem vindo ao seu cardápio virtual, para fazer o seu pedido é
+          nescessário escanear o QR code da sua mesa.
         </Typography>
       </Box>
 
@@ -51,7 +51,7 @@ const SignIn: React.FC = () => {
             variant="outlined"
             color="secondary"
           >
-            Cardápio
+            Escanear depois
           </StyledButton>
         </Link>
         <Link href="/readqr">
@@ -61,7 +61,7 @@ const SignIn: React.FC = () => {
             variant="contained"
             color="primary"
           >
-            Ler QR code
+            Escanear agora
           </StyledButton>
         </Link>
       </Box>

@@ -30,7 +30,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'inline'
   },
   title: {
-    flexGrow: 1
+    flexGrow: 1,
+    fontWeight: theme.typography.fontWeightLight
   },
   tab: {
     textTransform: 'none'
@@ -66,8 +67,8 @@ const Home: React.FC<{ menu: Array<MenuCategory> }> = ({ menu }) => {
     <div className={classes.root}>
       <AppBar position="sticky" color="inherit" elevation={0}>
         <Toolbar>
-          <Typography align="left" variant="h5" className={classes.title}>
-            Cardápio
+          <Typography align="left" variant="h4" className={classes.title}>
+            Pratos
           </Typography>
         </Toolbar>
         <Tabs
