@@ -16,11 +16,12 @@ import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
 import { Theme } from '@material-ui/core'
 
-import { showProducts } from '../../repository/ProductsRepository'
 import useTheme from '@material-ui/core/styles/useTheme'
-import Product from '../../entities/Product'
-import { currencyConvertion } from '../../utils/Conversions'
+
 import { GetStaticPaths, GetStaticProps } from 'next'
+import Product from '@domain/entities/Product'
+import { currencyConvertion } from '@presentation/utils/Conversions'
+import GetProduct from '@domain/usecases/products/GetProduct'
 
 const useStyles = makeStyles((theme: Theme) => ({
   productImage: {
@@ -176,7 +177,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async context => {
   const { item } = context.params
-  const data = await showProducts(Number(item))
+  const data = await GetProduct(Number(item))
 
   return {
     props: { product: data },

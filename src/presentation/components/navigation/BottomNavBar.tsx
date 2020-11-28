@@ -1,13 +1,11 @@
 import BottomNavigation from '@material-ui/core/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
-import MenuBookIcon from '@material-ui/icons/MenuBook'
-import FavoriteIcon from '@material-ui/icons/Favorite'
-import ReceiptIcon from '@material-ui/icons/Receipt'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { useState } from 'react'
 
 import { useRouter } from 'next/router'
+import BottonNavRoutes from '@presentation/routes/BottonNavRoutes'
 
 const useStyles = makeStyles({
   root: {
@@ -28,24 +26,16 @@ const BottomNavBar: React.FC = () => {
       onChange={(event, newValue) => {
         setValue(newValue)
       }}
-      showLabels
       className={classes.root}
     >
-      <BottomNavigationAction
-        label="Cardápio"
-        icon={<MenuBookIcon />}
-        onClick={() => router.push('/main/menu')}
-      />
-      <BottomNavigationAction
-        label="Favoritos"
-        icon={<FavoriteIcon />}
-        onClick={() => router.push('/main/favorites')}
-      />
-      <BottomNavigationAction
-        label="Conta"
-        icon={<ReceiptIcon />}
-        onClick={() => router.push('/main/orders')}
-      />
+      {BottonNavRoutes.map(route => (
+        <BottomNavigationAction
+          key={route.destination}
+          label={route.label}
+          icon={route.icon}
+          onClick={() => router.push(route.destination)}
+        />
+      ))}
     </BottomNavigation>
   )
 }

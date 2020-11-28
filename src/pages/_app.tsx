@@ -4,8 +4,8 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import { AppProps } from 'next/dist/next-server/lib/router/router'
 import { useEffect } from 'react'
 
-import theme from '../styles/theme'
-import BottomNavBar from '../components/BottomNavBar'
+import BottomNavigationLayout from '@presentation/components/layout/BottomNavigationLayout'
+import theme from '@presentation/styles/theme'
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   useEffect(() => {
@@ -26,8 +26,13 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Component {...pageProps} />
-        {router.pathname.includes('/main') ? <BottomNavBar /> : null}
+        {router.pathname.includes('/main') ? (
+          <BottomNavigationLayout>
+            <Component {...pageProps} />
+          </BottomNavigationLayout>
+        ) : (
+          <Component {...pageProps} />
+        )}
       </ThemeProvider>
     </>
   )

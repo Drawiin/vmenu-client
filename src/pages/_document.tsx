@@ -1,12 +1,12 @@
 import React from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheets } from '@material-ui/core/styles'
-import theme from '../styles/theme'
+import theme from '@presentation/styles/theme'
 
 export default class MyDocument extends Document {
   render(): JSX.Element {
     return (
-      <Html lang="en">
+      <Html lang="pt-Br">
         <Head>
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link

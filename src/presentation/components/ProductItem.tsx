@@ -1,11 +1,11 @@
+import Product from '@domain/entities/Product'
 import { Box, ListItem, Theme, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { currencyConvertion } from '@presentation/utils/Conversions'
 
 import Image from 'next/image'
 import Link from 'next/link'
 
-import Product from '../entities/Product'
-import { currencyConvertion } from '../utils/Conversions'
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     paddingTop: 16,
@@ -44,7 +44,7 @@ interface DishItemProps {
   dish: Product
 }
 
-const DishItem: React.FC<DishItemProps> = ({ dish }) => {
+const ProductItem: React.FC<DishItemProps> = ({ dish }) => {
   const classes = useStyles()
 
   return (
@@ -77,4 +77,4 @@ const DishItem: React.FC<DishItemProps> = ({ dish }) => {
   )
 }
 
-export default DishItem
+export default ProductItem

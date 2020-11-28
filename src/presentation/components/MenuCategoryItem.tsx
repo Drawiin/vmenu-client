@@ -1,10 +1,11 @@
 import Typography from '@material-ui/core/Typography'
 import List from '@material-ui/core/List'
-import DishItem from '../components/DishItem'
 import { makeStyles } from '@material-ui/core/styles'
 import { Container, Theme } from '@material-ui/core'
 import Divider from '@material-ui/core/Divider'
-import MenuCategory from '../entities/MenuCategory'
+
+import MenuCategory from '@domain/entities/MenuCategory'
+import ProductItem from '@presentation/components/ProductItem'
 
 interface CategoryItemProps {
   category: MenuCategory
@@ -19,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-const CategoryItem: React.FC<CategoryItemProps> = ({ category }) => {
+const MenuCategoryItem: React.FC<CategoryItemProps> = ({ category }) => {
   const classes = useStyles()
 
   return (
@@ -30,11 +31,11 @@ const CategoryItem: React.FC<CategoryItemProps> = ({ category }) => {
       <Divider />
       <List disablePadding>
         {category.itens.map(item => (
-          <DishItem dish={item} key={item.id} />
+          <ProductItem dish={item} key={item.id} />
         ))}
       </List>
     </Container>
   )
 }
 
-export default CategoryItem
+export default MenuCategoryItem
