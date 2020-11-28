@@ -31,7 +31,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   title: {
     flexGrow: 1,
-    fontWeight: theme.typography.fontWeightLight
+    fontWeight: theme.typography.fontWeightBold,
+    fontFamily: 'Dancing Script'
   },
   tab: {
     textTransform: 'none'
@@ -67,8 +68,13 @@ const Home: React.FC<{ menu: Array<MenuCategory> }> = ({ menu }) => {
     <div className={classes.root}>
       <AppBar position="sticky" color="inherit" elevation={0}>
         <Toolbar>
-          <Typography align="left" variant="h4" className={classes.title}>
-            Pratos
+          <Typography
+            align="center"
+            variant="h4"
+            className={classes.title}
+            color="primary"
+          >
+            Cardápio
           </Typography>
         </Toolbar>
         <Tabs
@@ -104,7 +110,7 @@ const Home: React.FC<{ menu: Array<MenuCategory> }> = ({ menu }) => {
 export default Home
 
 export const getStaticProps: GetStaticProps = async () => {
-  const menu = []
+  const menu = await GetMenu()
   return {
     props: { menu },
     revalidate: 10
