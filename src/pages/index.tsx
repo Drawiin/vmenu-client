@@ -3,7 +3,17 @@ import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Theme, withStyles } from '@material-ui/core/styles'
+import { makeStyles, Theme, withStyles } from '@material-ui/core/styles'
+
+const useStyles = makeStyles(theme => ({
+  title: {
+    fontWeight: theme.typography.fontWeightBold,
+    fontFamily: 'Dancing Script',
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(7)
+  },
+  image: {}
+}))
 
 const StyledButton = withStyles((theme: Theme) => ({
   label: {
@@ -16,6 +26,8 @@ const StyledButton = withStyles((theme: Theme) => ({
 }))(Button)
 
 const SignIn: React.FC = () => {
+  const classes = useStyles()
+
   return (
     <Box
       display="flex"
@@ -27,18 +39,26 @@ const SignIn: React.FC = () => {
       paddingBottom={5}
     >
       <Box display="flex" flexDirection="column" alignItems="center">
-        <Box width={1.0} overflow="hidden" marginTop={17} marginBottom={5}>
+        <Typography
+          variant="h4"
+          color="primary"
+          align="center"
+          className={classes.title}
+        >
+          Bem Vindo(a)
+        </Typography>
+        <Box width={1.0} overflow="hidden" marginBottom={1}>
           <Image
             src="/people.svg"
             layout="responsive"
-            width="100%"
-            height="55%"
+            width={250}
+            height={250}
+            className={classes.image}
           />
         </Box>
-
-        <Typography variant="h5" color="textSecondary" align="center">
-          Bem vindo ao seu cardápio virtual, para fazer o seu pedido é
-          nescessário escanear o QR code da sua mesa.
+        <Typography variant="h6" color="textSecondary" align="center">
+          Esse é nosso cardápio virtual, para começar a fazer o seu pedido,
+          escaneie o QR code da sua mesa.
         </Typography>
       </Box>
 
