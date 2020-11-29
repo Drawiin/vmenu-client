@@ -50,6 +50,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: 'space-between',
     textTransform: 'none',
     borderRadius: theme.spacing(1)
+  },
+  addBackgroun: {
+    backgroundColor: theme.palette.background.paper
   }
 }))
 const ProductDetail: React.FC<{ product: Product }> = ({ product }) => {
@@ -72,110 +75,118 @@ const ProductDetail: React.FC<{ product: Product }> = ({ product }) => {
   }
 
   return (
-    <Box display="flex" flexDirection="column">
-      <AppBar position="sticky" color="inherit" elevation={0}>
-        <Toolbar>
-          <IconButton
-            color="primary"
-            edge="start"
-            onClick={() => router.back()}
-          >
-            <ArrowBackIos />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-      <Box
-        display="flex"
-        justifyContent="center"
-        flexGrow={1}
-        paddingX={2}
-        marginTop={3}
-      >
-        {product?.images[0]?.url && (
-          <Image
-            src={product?.images[0].url}
-            width={250}
-            height={250}
-            className={classes.productImage}
-          />
-        )}
-      </Box>
-      <Box
-        display="flex"
-        flexDirection="column"
-        paddingX={2}
-        marginTop={3}
-        marginBottom={14}
-      >
-        <Typography className={classes.productName}>{product?.name}</Typography>
-        <Typography className={classes.productDescription}>
-          {product?.description}
-        </Typography>
-        <Typography className={classes.productPrice}>R$ 30,00</Typography>
+    <Box>
+      <Box display="flex" flexDirection="column" paddingBottom={14}>
+        <AppBar position="sticky" color="inherit" elevation={0}>
+          <Toolbar>
+            <IconButton
+              color="primary"
+              edge="start"
+              onClick={() => router.back()}
+            >
+              <ArrowBackIos />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
         <Box
           display="flex"
-          justifyContent="space-between"
-          flex={1}
-          marginTop={4}
-          marginBottom={1}
+          justifyContent="center"
+          flexGrow={1}
+          paddingX={2}
+          marginTop={3}
         >
-          <Typography color="textSecondary" variant="subtitle1">
-            Alguma Observação ?
-          </Typography>
-          <Typography color="textSecondary" variant="subtitle1">
-            {observation.length}/144
-          </Typography>
+          {product?.images[0]?.url && (
+            <Image
+              src={product?.images[0].url}
+              width={250}
+              height={250}
+              className={classes.productImage}
+            />
+          )}
         </Box>
-        <TextField
-          variant="outlined"
-          placeholder="Ex:sem maionese, sem picles etc."
-          multiline
-          value={observation}
-          onChange={e => setObservations(e.target.value)}
-          inputProps={{ maxLength: 140 }}
-        />
+        <Box display="flex" flexDirection="column" paddingX={2} marginTop={3}>
+          <Typography className={classes.productName}>
+            {product?.name}
+          </Typography>
+          <Typography className={classes.productDescription}>
+            {product?.description}
+          </Typography>
+          <Typography className={classes.productPrice}>R$ 30,00</Typography>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            flex={1}
+            marginTop={4}
+            marginBottom={1}
+          >
+            <Typography color="textSecondary" variant="subtitle1">
+              Alguma Observação ?
+            </Typography>
+            <Typography color="textSecondary" variant="subtitle1">
+              {observation.length}/144
+            </Typography>
+          </Box>
+          <TextField
+            variant="outlined"
+            placeholder="Ex:sem maionese, sem picles etc."
+            multiline
+            value={observation}
+            onChange={e => setObservations(e.target.value)}
+            inputProps={{ maxLength: 140 }}
+          />
+        </Box>
       </Box>
       <Box
         position="fixed"
         bottom={0}
         right={0}
-        padding={2}
-        display="flex"
         width={1.0}
-        justifyContent="space-between"
+        zIndex={2}
+        className={classes.addBackgroun}
       >
         <Box
+          padding={2}
           display="flex"
-          justifyContent="space-evenly"
-          alignItems="center"
-          border="1px solid"
-          borderRadius={8}
-          borderColor={theme.palette.text.disabled}
-          marginRight={2}
+          width={1.0}
+          justifyContent="space-between"
         >
-          <IconButton
-            color="primary"
-            disabled={quantity <= 0}
-            onClick={() => setQuantity(quantity - 1)}
+          <Box
+            display="flex"
+            justifyContent="space-evenly"
+            alignItems="center"
+            border="1px solid"
+            borderRadius={8}
+            borderColor={theme.palette.text.disabled}
+            marginRight={2}
           >
-            <Remove />
-          </IconButton>
-          <Typography variant="subtitle1">{quantity}</Typography>
-          <IconButton color="primary" onClick={() => setQuantity(quantity + 1)}>
-            <Add />
-          </IconButton>
+            <IconButton
+              color="primary"
+              disabled={quantity <= 0}
+              onClick={() => setQuantity(quantity - 1)}
+            >
+              <Remove />
+            </IconButton>
+            <Typography variant="subtitle1">{quantity}</Typography>
+            <IconButton
+              color="primary"
+              onClick={() => setQuantity(quantity + 1)}
+            >
+              <Add />
+            </IconButton>
+          </Box>
+          <Button
+            onClick={onAddItemClicked}
+            disabled={quantity <= 0}
+            variant="contained"
+            color="primary"
+            fullWidth
+            disableElevation
+            className={classes.addProductButton}
+          >
+            <span>Adiconar</span>{' '}
+            <span>{currencyConvertion(product?.price * quantity)}</span>
+          </Button>
         </Box>
-        <Button
-          onClick={onAddItemClicked}
-          disabled={quantity <= 0}
-          variant="contained"
-          color="primary"
-          fullWidth
-          className={classes.addProductButton}
-        >
-          <span>Adiconar</span>{' '}
-          <span>{currencyConvertion(product?.price * quantity)}</span>
-        </Button>
       </Box>
     </Box>
   )

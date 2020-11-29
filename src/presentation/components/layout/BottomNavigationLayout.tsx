@@ -33,24 +33,22 @@ const BottomNavigationLayout: React.FC = ({ children }) => {
     <Box height="100vh" width="100vw">
       <Box paddingBottom={7} width={1.0} position="relative" height={1.0}>
         {children}
-
-        <Button
-          color="primary"
-          variant="contained"
-          fullWidth
-          className={classes.orderButton}
-          disableElevation
-        >
-          <BagIcon quantity={orderStore.order.length} />
-          <Typography align="center" className={classes.title}>
-            Ver pedido
-          </Typography>
-          <Typography>
-            {currencyConvertion(getTotalPrice(orderStore.order))}
-          </Typography>
-        </Button>
       </Box>
-
+      <Button
+        color="primary"
+        variant="contained"
+        fullWidth
+        className={classes.orderButton}
+        disableElevation
+      >
+        <BagIcon quantity={orderStore.order.length} />
+        <Typography align="center" className={classes.title}>
+          Ver pedido
+        </Typography>
+        <Typography>
+          {currencyConvertion(getTotalPrice(orderStore.order))}
+        </Typography>
+      </Button>
       <BottomNavBar />
     </Box>
   )
