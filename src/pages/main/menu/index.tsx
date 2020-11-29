@@ -1,4 +1,4 @@
-import React, { useState, createRef, RefObject } from 'react'
+import React, { useState, createRef, RefObject, useContext } from 'react'
 
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
@@ -11,6 +11,7 @@ import { GetStaticProps } from 'next'
 import MenuCategory from '@domain/entities/MenuCategory'
 import MenuCategoryItem from '@presentation/components/MenuCategoryItem'
 import GetMenu from '@domain/usecases/products/GetMenu'
+import OrderContext from '@domain/utils/OrderContext'
 
 function a11yProps(index: number) {
   return {

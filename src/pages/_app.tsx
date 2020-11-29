@@ -6,8 +6,12 @@ import { useEffect } from 'react'
 
 import BottomNavigationLayout from '@presentation/components/layout/BottomNavigationLayout'
 import theme from '@presentation/styles/theme'
+import useOrderContext from '@domain/utils/hooks/useOrderContext'
+import OrderContext from '@domain/utils/OrderContext'
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
+  const value = useOrderContext()
+
   useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side')
     if (jssStyles) {
@@ -24,16 +28,18 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        {router.pathname.includes('/main') ? (
-          <BottomNavigationLayout>
+      <OrderContext.Provider value={value}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          {router.pathname.includes('/main') ? (
+            <BottomNavigationLayout>
+              <Component {...pageProps} />
+            </BottomNavigationLayout>
+          ) : (
             <Component {...pageProps} />
-          </BottomNavigationLayout>
-        ) : (
-          <Component {...pageProps} />
-        )}
-      </ThemeProvider>
+          )}
+        </ThemeProvider>
+      </OrderContext.Provider>
     </>
   )
 }

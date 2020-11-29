@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
 import { useRouter } from 'next/router'
 import Image from 'next/image'
@@ -22,6 +22,8 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import Product from '@domain/entities/Product'
 import { currencyConvertion } from '@presentation/utils/Conversions'
 import GetProduct from '@domain/usecases/products/GetProduct'
+import OrderContext from '@domain/utils/OrderContext'
+import OrderItem from '@domain/entities/OrderItem'
 
 const useStyles = makeStyles((theme: Theme) => ({
   productImage: {
@@ -56,6 +58,19 @@ const ProductDetail: React.FC<{ product: Product }> = ({ product }) => {
   const classes = useStyles()
   const theme = useTheme()
   const router = useRouter()
+  const orderStore = useContext(OrderContext)
+
+  const onAddItemClicked = () => {
+    const newOrder: OrderItem = {
+      id: product.id,
+      product,
+      observation,
+      quantity
+    }
+    orderStore.changeItens([...orderStore.order, newOrder])
+    router.back()
+  }
+
   return (
     <Box display="flex" flexDirection="column">
       <AppBar position="sticky" color="inherit" elevation={0}>
@@ -63,7 +78,7 @@ const ProductDetail: React.FC<{ product: Product }> = ({ product }) => {
           <IconButton
             color="primary"
             edge="start"
-            onClick={() => router.push('/main/menu')}
+            onClick={() => router.back()}
           >
             <ArrowBackIos />
           </IconButton>
@@ -151,7 +166,7 @@ const ProductDetail: React.FC<{ product: Product }> = ({ product }) => {
           </IconButton>
         </Box>
         <Button
-          onClick={() => router.push('/main/menu')}
+          onClick={onAddItemClicked}
           disabled={quantity <= 0}
           variant="contained"
           color="primary"

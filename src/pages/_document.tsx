@@ -6,7 +6,7 @@ import theme from '@presentation/styles/theme'
 export default class MyDocument extends Document {
   render(): JSX.Element {
     return (
-      <Html lang="pt">
+      <Html lang="pt-Br">
         <Head>
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link
