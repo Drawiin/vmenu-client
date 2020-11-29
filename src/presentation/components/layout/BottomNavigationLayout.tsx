@@ -12,7 +12,7 @@ import BottomNavBar from '../navigation/BottomNavBar'
 const useStyles = makeStyles(theme => ({
   orderButton: {
     borderRadius: 0,
-    position: 'absolute',
+    position: 'fixed',
     bottom: 56,
     display: 'flex',
     justifyContent: 'space-between',
