@@ -6,9 +6,10 @@ import { makeStyles } from '@material-ui/core/styles'
 import { currencyConvertion } from '@presentation/utils/Conversions'
 import getTotalPrice from '@presentation/utils/GetTotalPrice'
 
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import BagIcon from '../icons/BagIcon'
 import BottomNavBar from '../navigation/BottomNavBar'
+import OrderDialog from '../orders/OrderDialog'
 const useStyles = makeStyles(theme => ({
   orderButton: {
     borderRadius: 0,
@@ -26,6 +27,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const BottomNavigationLayout: React.FC = ({ children }) => {
+  const [open, setOpen] = useState(false)
   const orderStore = useContext(OrderContext)
   const classes = useStyles()
 
@@ -35,6 +37,7 @@ const BottomNavigationLayout: React.FC = ({ children }) => {
         {children}
       </Box>
       <Button
+        onClick={() => setOpen(true)}
         color="primary"
         variant="contained"
         fullWidth
@@ -50,6 +53,11 @@ const BottomNavigationLayout: React.FC = ({ children }) => {
         </Typography>
       </Button>
       <BottomNavBar />
+      <OrderDialog
+        open={open}
+        handleClose={() => setOpen(false)}
+        itens={orderStore.order}
+      />
     </Box>
   )
 }
