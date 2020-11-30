@@ -111,7 +111,9 @@ const ProductDetail: React.FC<{ product: Product }> = ({ product }) => {
           <Typography className={classes.productDescription}>
             {product?.description}
           </Typography>
-          <Typography className={classes.productPrice}>R$ 30,00</Typography>
+          <Typography className={classes.productPrice}>
+            {currencyConvertion(product?.price)}
+          </Typography>
           <Box
             display="flex"
             justifyContent="space-between"

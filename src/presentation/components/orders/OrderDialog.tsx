@@ -39,6 +39,14 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     subtotalPrice: {
       fontSize: 20
+    },
+    finishOrder: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      padding: theme.spacing(2),
+      width: '100%',
+      margin: 16,
+      textTransform: 'none'
     }
   })
 )
@@ -85,6 +93,7 @@ const OrderDialog: React.FC<{
         {itens.map(item => (
           <OrderListItem key={item.id} item={item} />
         ))}
+
         <Button
           fullWidth
           color="primary"
@@ -109,6 +118,17 @@ const OrderDialog: React.FC<{
         </Box>
         <Divider />
       </List>
+      <Box position="fixed" bottom={0} left={0} width="100%" display="flex">
+        <Button
+          disableElevation
+          variant="contained"
+          color="primary"
+          className={classes.finishOrder}
+        >
+          <Typography>Finalizar Pedido</Typography>
+          <Typography>{currencyConvertion(getTotalPrice(itens))}</Typography>
+        </Button>
+      </Box>
     </Dialog>
   )
 }
