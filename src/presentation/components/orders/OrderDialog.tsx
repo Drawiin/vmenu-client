@@ -10,8 +10,13 @@ import Typography from '@material-ui/core/Typography'
 import ExpandMoreOutlined from '@material-ui/icons/ExpandMoreOutlined'
 import Slide from '@material-ui/core/Slide'
 import { TransitionProps } from '@material-ui/core/transitions'
+import Button from '@material-ui/core/Button'
+
 import OrderListItem from './OrderListItem'
 import OrderItem from '@domain/entities/OrderItem'
+import { Box } from '@material-ui/core'
+import { currencyConvertion } from '@presentation/utils/Conversions'
+import getTotalPrice from '@presentation/utils/GetTotalPrice'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,6 +29,16 @@ const useStyles = makeStyles((theme: Theme) =>
     list: {
       paddingLeft: theme.spacing(2),
       paddingRight: theme.spacing(2)
+    },
+    addMoreButton: {
+      padding: theme.spacing(2)
+    },
+    subtotal: {
+      fontSize: 20,
+      color: theme.palette.text.secondary
+    },
+    subtotalPrice: {
+      fontSize: 20
     }
   })
 )
@@ -66,10 +81,33 @@ const OrderDialog: React.FC<{
         </Toolbar>
       </AppBar>
       <Divider />
-      <List className={classes.list}>
+      <List className={classes.list} disablePadding>
         {itens.map(item => (
           <OrderListItem key={item.id} item={item} />
         ))}
+        <Button
+          fullWidth
+          color="primary"
+          variant="text"
+          className={classes.addMoreButton}
+          onClick={handleClose}
+        >
+          Adicionar Mais Itens
+        </Button>
+
+        <Divider />
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          paddingY={2}
+          paddingX={1}
+        >
+          <Typography className={classes.subtotal}>Subtotal</Typography>
+          <Typography variant="subtitle1" className={classes.subtotalPrice}>
+            {currencyConvertion(getTotalPrice(itens))}
+          </Typography>
+        </Box>
+        <Divider />
       </List>
     </Dialog>
   )

@@ -65,7 +65,7 @@ const ProductDetail: React.FC<{ product: Product }> = ({ product }) => {
 
   const onAddItemClicked = () => {
     const newOrder: OrderItem = {
-      id: product.id,
+      id: Math.floor(Math.random() * 100) + product.id,
       product,
       observation,
       quantity

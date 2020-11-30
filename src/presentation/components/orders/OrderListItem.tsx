@@ -56,7 +56,7 @@ const OrderListItem: React.FC<OrderItemProps> = ({ item }) => {
         </Box>
         <Box display="flex" alignItems="center">
           <Typography className={classes.price}>
-            {currencyConvertion(item.product.price)}
+            {currencyConvertion(item.product.price * item.quantity)}
           </Typography>
           <IconButton color="primary" edge="end">
             <MenuIcon />
