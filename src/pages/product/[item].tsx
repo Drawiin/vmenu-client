@@ -24,6 +24,7 @@ import { currencyConvertion } from '@presentation/utils/Conversions'
 import GetProduct from '@domain/usecases/products/GetProduct'
 import OrderContext from '@domain/utils/OrderContext'
 import OrderItem from '@domain/entities/OrderItem'
+import GetProducts from '@domain/usecases/products/GetProducts'
 
 const useStyles = makeStyles((theme: Theme) => ({
   productImage: {
@@ -197,8 +198,13 @@ const ProductDetail: React.FC<{ product: Product }> = ({ product }) => {
 export default ProductDetail
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const products = await GetProducts()
+  const ids = products.map(product => ({
+    params: { item: String(product.id) }
+  }))
+
   return {
-    paths: [],
+    paths: ids,
     fallback: true
   }
 }
