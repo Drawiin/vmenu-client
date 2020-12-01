@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Dialog from '@material-ui/core/Dialog'
 import List from '@material-ui/core/List'
@@ -17,6 +17,11 @@ import OrderItem from '@domain/entities/OrderItem'
 import { Box } from '@material-ui/core'
 import { currencyConvertion } from '@presentation/utils/Conversions'
 import getTotalPrice from '@presentation/utils/GetTotalPrice'
+import GetUser from '@domain/usecases/user/GetUser'
+import User from '@domain/entities/User'
+import generateHeader from '@domain/utils/headers/indes'
+import Api from '@data/client/Api'
+import RequestLoginDialog from './RequestLoginDialog'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -62,8 +67,38 @@ const OrderDialog: React.FC<{
   open: boolean
   handleClose: () => void
   itens: OrderItem[]
-}> = ({ open, handleClose, itens }) => {
+  onSubmitOrder: () => void
+}> = ({ open, handleClose, itens, onSubmitOrder }) => {
   const classes = useStyles()
+  const [user, setUser] = useState<User>(null)
+  const [loginDialog, setLoginDialog] = useState(false)
+
+  useEffect(() => {
+    const user = GetUser()
+    user && setUser(user)
+  }, [])
+
+  const handleOrderFormSubmit = async () => {
+    const itensToSend = itens.map(item => ({
+      productId: item.product.id,
+      quantity: item.quantity,
+      description: item.observation
+    }))
+
+    const dataToSend = {
+      items: itensToSend,
+      table: 0
+    }
+
+    if (user) {
+      await Api.post('/order', dataToSend, {
+        headers: generateHeader(user.privateKey, user.email)
+      })
+      onSubmitOrder()
+    } else {
+      setLoginDialog(true)
+    }
+  }
 
   return (
     <Dialog
@@ -118,7 +153,14 @@ const OrderDialog: React.FC<{
         </Box>
         <Divider />
       </List>
-      <Box position="fixed" bottom={0} left={0} width="100%" display="flex">
+      <Box
+        position="fixed"
+        bottom={0}
+        left={0}
+        width="100%"
+        display="flex"
+        onClick={handleOrderFormSubmit}
+      >
         <Button
           disableElevation
           variant="contained"
@@ -129,6 +171,10 @@ const OrderDialog: React.FC<{
           <Typography>{currencyConvertion(getTotalPrice(itens))}</Typography>
         </Button>
       </Box>
+      <RequestLoginDialog
+        open={loginDialog}
+        handleClose={() => setLoginDialog(false)}
+      />
     </Dialog>
   )
 }

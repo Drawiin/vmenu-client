@@ -11,6 +11,11 @@ const BottomNavigationLayout: React.FC = ({ children }) => {
   const [open, setOpen] = useState(false)
   const orderStore = useContext(OrderContext)
 
+  const onSubmitOrder = () => {
+    orderStore.changeItens([])
+    setOpen(false)
+  }
+
   return (
     <Box height="100vh" width="100vw">
       <Box paddingBottom={7} width={1.0} position="relative" height={1.0}>
@@ -28,6 +33,7 @@ const BottomNavigationLayout: React.FC = ({ children }) => {
       <OrderDialog
         open={open}
         handleClose={() => setOpen(false)}
+        onSubmitOrder={onSubmitOrder}
         itens={orderStore.order}
       />
     </Box>
