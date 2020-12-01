@@ -1,4 +1,5 @@
 import OrderContext from '@domain/utils/OrderContext'
+import { Divider } from '@material-ui/core'
 import Box from '@material-ui/core/Box'
 import getTotalPrice from '@presentation/utils/GetTotalPrice'
 

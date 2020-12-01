@@ -186,7 +186,7 @@ const ProductDetail: React.FC<{ product: Product }> = ({ product }) => {
             disableElevation
             className={classes.addProductButton}
           >
-            <span>Adiconar</span>{' '}
+            <span>Adicionar</span>{' '}
             <span>{currencyConvertion(product?.price * quantity)}</span>
           </Button>
         </Box>

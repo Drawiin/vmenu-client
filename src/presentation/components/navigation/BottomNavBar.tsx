@@ -13,7 +13,8 @@ const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
     position: 'fixed',
-    bottom: 0
+    bottom: 0,
+    borderTop: '1px solid rgba(0, 0, 0, 0.12)'
   }
 }))
 

@@ -12,6 +12,7 @@ import MenuCategory from '@domain/entities/MenuCategory'
 import MenuCategoryItem from '@presentation/components/MenuCategoryItem'
 import GetMenu from '@domain/usecases/products/GetMenu'
 import OrderContext from '@domain/utils/OrderContext'
+import { Divider } from '@material-ui/core'
 
 function a11yProps(index: number) {
   return {
@@ -98,6 +99,7 @@ const Home: React.FC<{ menu: Array<MenuCategory> }> = ({ menu }) => {
             )
           })}
         </Tabs>
+        <Divider />
       </AppBar>
       {menu.map(category => (
         <div ref={refs[category.id]} key={category.id}>

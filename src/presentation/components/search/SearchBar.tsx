@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+
 import InputBase from '@material-ui/core/InputBase'
 import IconButton from '@material-ui/core/IconButton'
 import CancelIcon from '@material-ui/icons/CloseOutlined'
 import SearchIcon from '@material-ui/icons/Search'
+import { Divider } from '@material-ui/core'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -54,31 +58,34 @@ const SearchBar: React.FC<{
   }
 
   return (
-    <Paper className={classes.root} elevation={0}>
-      <IconButton
-        className={classes.iconButton}
-        aria-label="menu"
-        color="primary"
-        onClick={clearInput}
-      >
-        <CancelIcon />
-      </IconButton>
-      <InputBase
-        value={value}
-        className={classes.input}
-        placeholder="Buscar pratos"
-        onChange={onValueChange}
-        inputProps={{ 'aria-label': 'Buscar pratos' }}
-      />
-      <IconButton
-        color="primary"
-        className={classes.iconButton}
-        aria-label="search"
-        onClick={onSubmitClicked}
-      >
-        <SearchIcon />
-      </IconButton>
-    </Paper>
+    <AppBar position="sticky" color="inherit" elevation={0}>
+      <Toolbar disableGutters>
+        <IconButton
+          className={classes.iconButton}
+          aria-label="menu"
+          color="primary"
+          onClick={clearInput}
+        >
+          <CancelIcon />
+        </IconButton>
+        <InputBase
+          value={value}
+          className={classes.input}
+          placeholder="Buscar pratos"
+          onChange={onValueChange}
+          inputProps={{ 'aria-label': 'Buscar pratos' }}
+        />
+        <IconButton
+          color="primary"
+          className={classes.iconButton}
+          aria-label="search"
+          onClick={onSubmitClicked}
+        >
+          <SearchIcon />
+        </IconButton>
+      </Toolbar>
+      <Divider />
+    </AppBar>
   )
 }
 
