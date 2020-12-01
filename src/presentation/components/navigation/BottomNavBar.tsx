@@ -5,7 +5,9 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useState } from 'react'
 
 import { useRouter } from 'next/router'
-import BottonNavRoutes from '@presentation/routes/BottonNavRoutes'
+import BottonNavRoutes, {
+  getNavIndex
+} from '@presentation/routes/BottonNavRoutes'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,9 +19,8 @@ const useStyles = makeStyles(theme => ({
 
 const BottomNavBar: React.FC = () => {
   const classes = useStyles()
-  const [value, setValue] = useState(0)
   const router = useRouter()
-
+  const [value, setValue] = useState(getNavIndex(router.pathname))
   return (
     <BottomNavigation
       value={value}

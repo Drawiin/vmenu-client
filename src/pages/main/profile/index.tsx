@@ -1,6 +1,7 @@
+import { Button } from '@material-ui/core'
 import Box from '@material-ui/core/Box'
-import Typography from '@material-ui/core/Typography'
-import Image from 'next/image'
+
+import Link from 'next/link'
 
 const Orders: React.FC = () => {
   return (
@@ -12,11 +13,19 @@ const Orders: React.FC = () => {
       justifyContent="center"
       flexDirection="column"
     >
-      <Image src="/empty_orders.svg" width={200} height={200} />
-      <Box marginTop={5}>
-        <Typography variant="h5" align="center" color="textSecondary">
-          Você ainda não tem pedidos
-        </Typography>
+      <Box padding={4} width={1.0}>
+        <Link href="/login">
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            disableElevation
+            style={{ textTransform: 'none' }}
+            fullWidth
+          >
+            Entrar ou cadastrar
+          </Button>
+        </Link>
       </Box>
     </Box>
   )

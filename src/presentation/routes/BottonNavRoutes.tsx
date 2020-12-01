@@ -26,4 +26,9 @@ const BottonNavRoutes = [
   }
 ]
 
+export function getNavIndex(pathName: string): number {
+  const index = BottonNavRoutes.findIndex(item => item.destination === pathName)
+  return index >= 0 ? index : 0
+}
+
 export default BottonNavRoutes
