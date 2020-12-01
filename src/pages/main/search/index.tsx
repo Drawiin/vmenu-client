@@ -9,7 +9,7 @@ const Orders: React.FC = () => {
   return (
     <Box
       width={1.0}
-      height="100vh"
+      height="100%"
       display="flex"
       alignItems="center"
       flexDirection="column"
