@@ -34,7 +34,8 @@ const useStyles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-    textTransform: 'none'
+    textTransform: 'none',
+    padding: theme.spacing(2)
   }
 }))
 const Register: React.FC = () => {

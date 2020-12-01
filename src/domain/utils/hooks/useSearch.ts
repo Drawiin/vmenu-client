@@ -11,9 +11,18 @@ export default function useSearch(): [Product[], (query: string) => void] {
   }, [])
 
   const hasQuery = (product: Product, query: string) => {
-    const name = product.name.toLocaleLowerCase()
-    const description = product.description.toLocaleLowerCase()
-    const searchTerm = query.toLocaleLowerCase()
+    const name = product.name
+      .toLocaleLowerCase()
+      .normalize('NFD')
+      .replace(/[^a-zA-Zs]/g, '')
+    const description = product.description
+      .toLocaleLowerCase()
+      .normalize('NFD')
+      .replace(/[^a-zA-Zs]/g, '')
+    const searchTerm = query
+      .toLocaleLowerCase()
+      .normalize('NFD')
+      .replace(/[^a-zA-Zs]/g, '')
     return name.includes(searchTerm) || description.includes(searchTerm)
   }
 
