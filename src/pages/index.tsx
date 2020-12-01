@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
   image: {}
 }))
 
-const StyledButton = withStyles((theme: Theme) => ({
+export const StyledButton = withStyles((theme: Theme) => ({
   label: {
     textTransform: 'capitalize'
   },
