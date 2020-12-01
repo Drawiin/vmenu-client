@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
@@ -15,6 +15,16 @@ import ArrowBackIos from '@material-ui/icons/ArrowBackIos'
 
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import KeyPair from '@domain/forms/KeyPair'
+import { decrypt, encrypt, hashPassword } from '@domain/utils/crypt'
+import Api from '@data/client/Api'
+import keypair from 'keypair'
+import User from '@domain/entities/User'
+import SetUser from '@domain/usecases/user/SetUser'
+import { LoginForm } from '@domain/forms/LoginForm'
+import { CircularProgress } from '@material-ui/core'
+import { AxiosResponse } from 'axios'
+import AxiosLoginResponse from '@domain/entities/AxiosLoginResonse'
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -41,6 +51,72 @@ const useStyles = makeStyles(theme => ({
 const Login: React.FC = () => {
   const classes = useStyles()
   const router = useRouter()
+  const [form, setForm] = useState<LoginForm>({
+    email: '',
+    password: '',
+    name: ''
+  })
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setError('')
+    setForm(form => ({
+      ...form,
+      [event.target.name]: event.target.value
+    }))
+  }
+
+  const handleLoginFormSubmit = async () => {
+    const hashedPassword = await hashPassword(form.password)
+
+    try {
+      const userResponse: AxiosResponse<AxiosLoginResponse> = await Api.get(
+        '/login',
+        {
+          auth: {
+            username: form.email,
+            password: hashedPassword
+          }
+        }
+      ).catch(() => null)
+
+      if (userResponse) {
+        const decryptedPrivateKey = decrypt(
+          form.password,
+          userResponse.data.encryptedPrivateKey
+        )
+
+        delete userResponse.data.encryptedPrivateKey
+
+        const userData: User = {
+          ...userResponse.data,
+          privateKey: decryptedPrivateKey
+        }
+        SetUser(userData)
+        router.push('/main/menu')
+      } else {
+        setError('Informações inválidas')
+      }
+    } catch (error) {
+      setError('Informações inválidas')
+    }
+  }
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setLoading(true)
+
+    await handleLoginFormSubmit()
+
+    setForm({
+      email: '',
+      password: '',
+      name: ''
+    })
+    setLoading(false)
+    return null
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -62,12 +138,14 @@ const Login: React.FC = () => {
         <Typography component="h1" variant="h5">
           Entrar
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
+            value={form.email}
+            onChange={handleChange}
             id="email"
             label="Email"
             name="email"
@@ -79,13 +157,15 @@ const Login: React.FC = () => {
             margin="normal"
             required
             fullWidth
+            value={form.password}
+            onChange={handleChange}
             name="password"
             label="Senha"
             type="password"
             id="password"
             autoComplete="current-password"
           />
-
+          <Box style={{ color: 'red' }}>{error}</Box>
           <Button
             type="submit"
             fullWidth
@@ -93,6 +173,8 @@ const Login: React.FC = () => {
             color="primary"
             className={classes.submit}
             disableElevation
+            disabled={loading}
+            startIcon={loading && <CircularProgress size={16} />}
           >
             Entrar
           </Button>
