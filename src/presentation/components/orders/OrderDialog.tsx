@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Dialog from '@material-ui/core/Dialog'
 import List from '@material-ui/core/List'
@@ -16,7 +16,10 @@ import OrderListItem from './OrderListItem'
 import OrderItem from '@domain/entities/OrderItem'
 import { Box } from '@material-ui/core'
 import { currencyConvertion } from '@presentation/utils/Conversions'
+import Api from '@data/client/Api'
 import getTotalPrice from '@presentation/utils/GetTotalPrice'
+import generateHeader from '@presentation/utils/generateHeader'
+import UserContext from '@domain/utils/UserContext'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -64,6 +67,26 @@ const OrderDialog: React.FC<{
   itens: OrderItem[]
 }> = ({ open, handleClose, itens }) => {
   const classes = useStyles()
+  const { user } = useContext(UserContext)
+
+  const handleOrderFormSubmit = async () => {
+    const itensToSend = itens.map(item => ({
+      productId: item.product.id,
+      quantity: item.quantity,
+      description: item.observation
+    }))
+
+    const dataToSend = {
+      items: itensToSend,
+      table: 0
+    }
+
+    if (user) {
+      await Api.post('/order', dataToSend, {
+        headers: generateHeader(user.privateKey, user.email)
+      })
+    }
+  }
 
   return (
     <Dialog
@@ -124,6 +147,7 @@ const OrderDialog: React.FC<{
           variant="contained"
           color="primary"
           className={classes.finishOrder}
+          onClick={handleOrderFormSubmit}
         >
           <Typography>Finalizar Pedido</Typography>
           <Typography>{currencyConvertion(getTotalPrice(itens))}</Typography>
