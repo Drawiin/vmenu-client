@@ -1,5 +1,5 @@
 module.exports = {
-    images: {
-      domains: ['migueis-api.herokuapp.com'],
-    },
+  images: {
+    domains: ['migueis-api.herokuapp.com']
   }
+}
