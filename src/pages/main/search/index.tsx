@@ -1,23 +1,24 @@
+import useSearch from '@domain/utils/hooks/useSearch'
 import Box from '@material-ui/core/Box'
-import Typography from '@material-ui/core/Typography'
-import Image from 'next/image'
+import SearchBar from '@presentation/components/search/SearchBar'
+import Preview from '@presentation/components/search/Preview'
 
 const Orders: React.FC = () => {
+  const [results, getResults] = useSearch()
+
   return (
     <Box
       width={1.0}
       height="100vh"
       display="flex"
       alignItems="center"
-      justifyContent="center"
       flexDirection="column"
     >
-      <Image src="/empty_orders.svg" width={200} height={200} />
-      <Box marginTop={5}>
-        <Typography variant="h5" align="center" color="textSecondary">
-          Você ainda não tem pedidos
-        </Typography>
-      </Box>
+      <SearchBar
+        onTextChange={query => getResults(query)}
+        onSubmit={query => getResults(query)}
+      />
+      <Preview sugestions={results} />
     </Box>
   )
 }

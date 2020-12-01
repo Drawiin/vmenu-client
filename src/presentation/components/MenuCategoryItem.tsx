@@ -30,6 +30,7 @@ const MenuCategoryItem: React.FC<CategoryItemProps> = ({ category }) => {
       </Typography>
       <Divider />
       <List disablePadding>
+        <Divider />
         {category.itens.map(item => (
           <ProductItem dish={item} key={item.id} />
         ))}

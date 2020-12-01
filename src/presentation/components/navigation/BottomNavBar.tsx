@@ -7,13 +7,13 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import BottonNavRoutes from '@presentation/routes/BottonNavRoutes'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
     position: 'fixed',
     bottom: 0
   }
-})
+}))
 
 const BottomNavBar: React.FC = () => {
   const classes = useStyles()
