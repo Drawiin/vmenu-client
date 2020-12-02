@@ -1,30 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center">
+    My Movies
+</h1>
 
-## Getting Started
+<p align="center">
+  <a href="#rocket-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#memo-licença">Licença</a>
+</p>
 
-First, run the development server:
+<br>
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+<p align="center">
+  <img alt="vmenu" src=".github/img.png" width="100%">
+</p>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## :rocket: Tecnologias
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-## Learn More
+- [reactjs](https://pt-br.reactjs.org/)
+- [nextjs](https://nextjs.org/)
+- [material-ui](https://reactjs.org)
 
-To learn more about Next.js, take a look at the following resources:
+## 💻 Projeto
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+O vmenu, é um cardápio virtual, em tempos de pandemia ele tem o objetico de manter o funcionamento dos restourantes maximizando o distanciamento social, segurança e ainda tornando o negócio mais eficiente, e empoderando o sesenvolvedor.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## :memo: Licença
 
-## Deploy on Vercel
+Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para mais detalhes.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Feito com ♥ by Vinicius :wave:
